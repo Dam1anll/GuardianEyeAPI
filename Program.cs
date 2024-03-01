@@ -18,6 +18,12 @@ namespace GuardianEyeAPI
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddSingleton<UsuarioServices>();
+            builder.Services.AddSingleton<CamaraServices>();
+            builder.Services.AddSingleton<NotificacionServices>();
+            builder.Services.AddSingleton<SensorServices>();
+            builder.Services.AddSingleton<RegistroUsuariosServices>();
+            builder.Services.AddSingleton<ImagenServices>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
