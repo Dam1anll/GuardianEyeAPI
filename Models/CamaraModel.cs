@@ -12,11 +12,9 @@ namespace GuardianEyeAPI.Models
         public string Ubicacion { get; set; } = string.Empty;
 
         [BsonElement("Estado")]
-        public string Estado { get; set; } = string.Empty;
+        public string Estado { get; set; } = string.Empty; 
 
         [BsonElement("Modelo")]
         public string Modelo { get; set; } = string.Empty;
-
-       
     }
 }
