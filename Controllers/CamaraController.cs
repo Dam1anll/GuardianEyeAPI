@@ -41,7 +41,7 @@ public class CamaraController : ControllerBase
         if (camara == null)
             return BadRequest();
         if (camara.Ubicacion == string.Empty)
-            ModelState.AddModelError("Ubicacion", "El usuario no debe estar vacio");
+            ModelState.AddModelError("Ubicacion", "La Camara no debe estar vacio");
 
         await _camaraServices.InsertCamara(camara);
 
@@ -50,20 +50,33 @@ public class CamaraController : ControllerBase
 
     ///Actualizar Usuario
     [HttpPut("{Id}")]
-    public async Task<IActionResult> UpdateCamara([FromBody] CamaraModel camara, string Id)
+    public async Task<IActionResult> UpdateCamara([FromBody] CamaraModel camara, string Id) 
     {
-        if (camara == null)
-            return BadRequest();
-        if (camara.Ubicacion == string.Empty)
-            ModelState.AddModelError("Name", "El usuario no debe estar vacio");
-        camara.Id = Id;
+        CamaraModel camaraModel = new CamaraModel()
+        {
+            Id = Id,
+            Ubicacion = camara.Ubicacion,
+            Estado = camara.Estado,
+            Modelo = camara.Modelo
+        };
 
-        await _camaraServices.UpdateCamara(camara);
+        await _camaraServices.UpdateCamara(camaraModel);
         return Created("Created", true);
     }
+    //public async Task<IActionResult> UpdateCamara([FromBody] CamaraModel camara, string Id)
+    //{
+    //    if (camara == null)
+    //        return BadRequest();
+    //    if (camara.Ubicacion == string.Empty)
+    //        ModelState.AddModelError("Name", "El usuario no debe estar vacio");
+    //    camara.Id = Id;
+
+    //    await _camaraServices.UpdateCamara(camara);
+    //    return Created("Created", true);
+    //}
 
     ///Eliminar Usuario
-    [HttpDelete]
+    [HttpDelete("{Id}")]
     public async Task<IActionResult> DeleteCamara(string Id)
     {
         await _camaraServices.DeleteCamara(Id);

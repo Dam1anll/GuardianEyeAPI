@@ -18,7 +18,7 @@ namespace GuardianEyeAPI
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddSingleton<UsuarioServices>();
-            builder.Services.AddSingleton<CamaraServices>();
+            builder.Services.AddScoped<CamaraServices>();
             builder.Services.AddSingleton<NotificacionServices>();
             builder.Services.AddSingleton<SensorServices>();
             builder.Services.AddSingleton<RegistroUsuariosServices>();
