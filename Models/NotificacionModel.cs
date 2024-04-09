@@ -8,7 +8,7 @@ namespace GuardianEyeAPI.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id = string.Empty;
+        public string Id { get; set; } = string.Empty;
 
         [BsonElement("Fecha")]
         public DateTime Fecha { get; set; } = DateTime.Now;
@@ -25,6 +25,9 @@ namespace GuardianEyeAPI.Models
         [BsonElement("Video")]
         public string Video { get; set; } = string.Empty;
 
-       
+        [BsonElement("Titulo")]
+        public string Titulo { get; set; } = string.Empty;
+
+
     }
 }

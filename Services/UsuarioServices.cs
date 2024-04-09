@@ -3,6 +3,10 @@ using MongoDB.Driver;
 using Microsoft.Extensions.Options;
 using GuardianEyeAPI.Configuration;
 using MongoDB.Bson;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace GuardianEyeAPI.Services
 {
@@ -10,7 +14,7 @@ namespace GuardianEyeAPI.Services
     {
         private readonly IMongoCollection<UsuarioModel> _usuarioCollection;
 
-        public UsuarioServices(IOptions<DataBaseSettings> databaseSettings) 
+        public UsuarioServices(IOptions<DataBaseSettings> databaseSettings)
         {
             var mongoClient = new MongoClient(databaseSettings.Value.ConnectionString);
 
@@ -40,6 +44,12 @@ namespace GuardianEyeAPI.Services
         {
             var filter = Builders<UsuarioModel>.Filter.Eq(s => s.Id, Id);
             await _usuarioCollection.DeleteOneAsync(filter);
+        }
+
+        public async Task<UsuarioModel> GetByEmailAndPassword(string correo, string contraseña)
+        {
+            // Realizar la lógica para buscar el usuario por correo y contraseña
+            return await _usuarioCollection.Find(u => u.Correo == correo && u.Contraseña == contraseña).FirstOrDefaultAsync();
         }
     }
 }

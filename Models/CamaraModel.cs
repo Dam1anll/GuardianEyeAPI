@@ -7,7 +7,7 @@ namespace GuardianEyeAPI.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
 
-        public string Id { get; set; } = string.Empty;
+        public string Id = string.Empty;
 
         [BsonElement("Ubicacion")]
         public string Ubicacion { get; set; } = string.Empty;

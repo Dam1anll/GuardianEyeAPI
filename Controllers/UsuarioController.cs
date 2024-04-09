@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using GuardianEyeAPI.Models;
 using GuardianEyeAPI.Services;
+using Microsoft.AspNetCore.Authorization;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Drivers.Api.Controllers;
 
@@ -16,6 +18,37 @@ public class UsuarioController : ControllerBase
     {
         _logger = logger;
         _usuarioServices = usuarioServices;
+    }
+
+    [AllowAnonymous]
+    [HttpPost("register")]
+    public async Task<IActionResult> Register([FromBody] UsuarioModel usuario)
+    {
+        if (usuario == null)
+            return BadRequest("Datos de usuario inválidos.");
+
+        // Puedes realizar aquí la validación adicional, por ejemplo, si el usuario ya existe, etc.
+
+        await _usuarioServices.InsertDriver(usuario);
+
+        return Ok("Usuario registrado exitosamente.");
+    }
+
+    [AllowAnonymous]
+    [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody] LoginModel login)
+    {
+        if (login == null || string.IsNullOrEmpty(login.Correo) || string.IsNullOrEmpty(login.Contraseña))
+            return BadRequest("Credenciales inválidas.");
+
+        var usuario = await _usuarioServices.GetByEmailAndPassword(login.Correo, login.Contraseña);
+
+        if (usuario == null)
+            return Unauthorized("Correo o contraseña incorrectos.");
+
+        // Aquí puedes generar el token JWT y devolverlo en la respuesta
+        var token = JwtHelper.GenerateToken(usuario);
+        return Ok(new { Token = token });
     }
 
     ///Obtener todos los Usuarios

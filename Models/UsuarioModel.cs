@@ -7,7 +7,7 @@ namespace GuardianEyeAPI.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id = string.Empty;
+        public string Id { get; set; } = string.Empty;
 
         [BsonElement("Nombre")]
         public string Nombre { get; set; } = string.Empty;
@@ -25,7 +25,15 @@ namespace GuardianEyeAPI.Models
         public string Contraseña { get; set;} = string.Empty;
 
         [BsonElement("NumeroCelular")]
-        public int NumeroCelular { get; set;} 
+        public Int64 NumeroCelular { get; set;} 
 
+    }
+    public class LoginModel
+    {
+        [BsonElement("Correo")]
+        public string Correo { get; set; }
+
+        [BsonElement("Contraseña")]
+        public string Contraseña { get; set; }
     }
 }
