@@ -19,7 +19,7 @@ namespace GuardianEyeAPI.Controllers
             _notificacionServices = notificacionServices;
         }
 
-        ///Obtener todos los Usuarios
+        ///Obtener todos los Usuarios/
         [HttpGet]
         public async Task<IActionResult> GetUsuarios()
         {
