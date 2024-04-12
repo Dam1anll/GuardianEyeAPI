@@ -28,6 +28,5 @@ namespace GuardianEyeAPI.Models
         [BsonElement("Titulo")]
         public string Titulo { get; set; } = string.Empty;
 
-
     }
 }
